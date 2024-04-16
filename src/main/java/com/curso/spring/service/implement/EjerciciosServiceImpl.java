@@ -22,12 +22,35 @@ public class EjerciciosServiceImpl implements EjerciciosService {
         listaNombres.add("Cecilia");
         listaNombres.add("Isaac");
 
-        for (String nombre : listaNombres){
+        /*for (String nombre : listaNombres){
             if(nombre.contains("o") || nombre.contains("O")){
                 log.info("Entro al if de lista nombres");
                 response.add(nombre);
             }
-        }
+        }*/
+
+        /*int index = 0;
+        while(index < listaNombres.size()){
+            String nombre = listaNombres.get(index);
+            if(nombre.toLowerCase().contains("o")){
+                response.add(nombre);
+            }
+            index++;
+        }*/
+
+        int index = 0;
+        do{
+           String nombre = listaNombres.get(index);
+            if(nombre.toLowerCase().contains("o")){
+                response.add(nombre);
+            }
+            index++;
+        } while(index < listaNombres.size());
+
+        /*response = listaNombres.stream()
+                .filter(nombre -> nombre.toLowerCase().contains("0"))
+                .*/
+
 
         return response;
     }
