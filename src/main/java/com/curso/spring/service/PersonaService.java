@@ -1,6 +1,7 @@
 package com.curso.spring.service;
 
 import com.curso.spring.dto.request.PersonaRequest;
+import com.curso.spring.dto.response.DatosPersonaResponse;
 import com.curso.spring.model.Personas;
 import org.springframework.http.ResponseEntity;
 
@@ -13,5 +14,15 @@ public interface PersonaService {
     ResponseEntity<Personas> guardarPersona(Personas persona);
 
     ResponseEntity<Personas> guardarPersona2(PersonaRequest persona);
+
+    Personas buscarPersonaId(Long id);
+
+    ResponseEntity<Object> actualizarPersona(PersonaRequest persona);
+
+    void eliminarPersona(Long id);
+
+    List<String> obtenerPersonasPorGenero(String genero);
+
+    ResponseEntity<Object> obtenerDatosPersonaFiltro(Integer id);
 
 }
