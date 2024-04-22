@@ -10,10 +10,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.concurrent.ExecutionException;
 
 @Service
 @Slf4j
@@ -59,12 +59,12 @@ public class PersonaServiceImpl implements PersonaService {
 
         ResponseEntity<Object> response = null;
 
-        Optional<Personas> existePersona = personasRepository.findById(request.getPersonaid());
+        Optional<Personas> existePersona = personasRepository.findById(request.getPersonaId());
 
         if(existePersona.isPresent()) {
 
             Personas personas = new Personas();
-            personas.setPersonaId(request.getPersonaid());
+            personas.setPersonaId(request.getPersonaId());
             personas.setNombre(request.getNombre());
             personas.setEdad(request.getEdad());
             personas.setGenero(request.getGenero());
@@ -109,5 +109,64 @@ public class PersonaServiceImpl implements PersonaService {
         return  response;
     }
 
+    @Transactional
+    @Override
+    public ResponseEntity<?> guardarPersonaFormaNativa(PersonaRequest request) {
 
+        ResponseEntity<?> response = null;
+
+        try{
+            Integer result = personasRepository.guardarPersonaNativa(request);
+
+            if(result > 0){
+                response = ResponseEntity.ok().body("El guardado se realizo exitosamente");
+            }else{
+                response = ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Ocurrio un error al intentar insertar");
+            }
+
+        } catch (Exception e){
+            log.error("Error en el metodo agregar persona de forma nativa " + e.getMessage());
+        }
+
+        return response;
+    }
+
+    @Transactional
+    @Override
+    public ResponseEntity<?> actualizarPersonaFormaNativa(PersonaRequest request) {
+
+        ResponseEntity<?> response = null;
+
+        try{
+
+            Integer result = personasRepository.actualizarPersonaNativa(request);
+
+            if(result > 0){
+                response = ResponseEntity.ok().body("El dato se actualizo exitosamente");
+            }else{
+                response = ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Ocurrio un error al intentar insertar");
+            }
+
+        }catch (Exception e){
+            log.error("Error en el metodo actualizar datos persona de forma nativa " + e.getMessage());
+        }
+        return response;
+    }
+
+    @Transactional
+    @Override
+    public boolean eliminarPersonaFormaNativa(int id) {
+        boolean response = false;
+
+        try{
+
+            personasRepository.eliminarPersonaNativa(id);
+            response = true;
+
+
+        }catch (Exception e){
+                log.error("Error en el metodo eliminar persona de forma nativa " + e.getMessage());
+        }
+        return response;
+    }
 }

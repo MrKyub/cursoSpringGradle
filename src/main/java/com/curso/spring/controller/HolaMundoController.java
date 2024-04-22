@@ -1,6 +1,7 @@
 package com.curso.spring.controller;
 
 import com.curso.spring.dto.Persona;
+import com.curso.spring.dto.response.Posts;
 import com.curso.spring.service.EjerciciosService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -48,4 +49,20 @@ public class HolaMundoController {
         return ejerciciosService.getListaNombres();
     }
 
+    @GetMapping("/posts/{id}")
+    @Operation(summary = "Operacion para consumir un servicio REST")
+    public Posts getPosts(@PathVariable int id){
+
+        return ejerciciosService.getPosts(id);
+    }
+
 }
+
+
+
+
+
+
+
+
+

@@ -6,7 +6,7 @@ import lombok.Setter;
 @Getter
 @Setter
 public class PersonaRequest {
-    private Long personaid;
+    private Long personaId;
     private String nombre;
     private Integer edad;
     private String genero;

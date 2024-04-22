@@ -13,8 +13,8 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/personas")
-@Tag(name = "Manejo datos tabla Personas con gradle")
+@RequestMapping("/crud-personas-gradle")
+@Tag(name = "Manejo datos tabla Personas")
 public class PersonaControler {
 
     @Autowired
@@ -72,4 +72,21 @@ public class PersonaControler {
         return personaService.obtenerDatosPersonaFiltro(id);
     }
 
+    @PostMapping("/persona/guardar/forma-nativa")
+    @Operation(summary = "Operacion para guardar los en BD manera nativa")
+    public ResponseEntity<?> guardarPersonaFormaNativa(@RequestBody PersonaRequest request){
+        return personaService.guardarPersonaFormaNativa(request);
+    }
+
+    @PutMapping("/person/actualizar/forma-nativa")
+    @Operation(summary = "Operacion para actualizar BD forma nativa")
+    public ResponseEntity<?> actualizarPersonaFormaNativa(@RequestBody PersonaRequest request){
+        return personaService.actualizarPersonaFormaNativa(request);
+    }
+
+    @DeleteMapping("persona/eliminar/forma-nativa")
+    @Operation(summary = "Operacion para eliminar en la BD de forma nativa")
+    public boolean eliminarPersonaFormaNativa(int id) {
+        return personaService.eliminarPersonaFormaNativa(id);
+    }
 }
